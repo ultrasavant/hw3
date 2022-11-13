@@ -12,6 +12,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <ctime>
+#include <cstring>
 #include <exception> 
 #include <time.h>
 #include <stdio.h>

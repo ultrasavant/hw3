@@ -5,6 +5,7 @@
 #include "Record.h"
 
 #include "ecs36b_Common.h"
+#include "ecs36b_JSON.h"
 
 int main() {
     
@@ -78,32 +79,46 @@ int main() {
     grandmotherAtHome.addGPS(0, 0.5);
     grandmotherAtHome.addDescription("Grandmother at home right outside woods with three oak trees nearby");
 
+    // Combine records in testingJV, write to file "jsonFile.txt"
+    // Read json values from "jsonFile.txt" to readJsonFile
+    // Use readJsonFile sections to call Json2Object()
+    // Verify record using dump2Json() for original and new record
+    Json::Value testingJV;
+    Json::Value readJsonFile;
+    testingJV["Record 1"] = ridingHoodWearCap.dump2JSON();
+    testingJV["Record 2"] = ridingHoodGetsFood.dump2JSON();
+    testingJV["Record 3"] = ridingHoodEncountersWolf.dump2JSON();
+    testingJV["Record 4"] = grandmotherAtHome.dump2JSON();
+    char jsonFile[] = "jsonFile.txt";
+
+    myJSON2File(jsonFile, &testingJV);
+    myFile2JSON (jsonFile, &readJsonFile);
 
     // dump2json and json2object (print and compare records)
-    Record testingRecord;
-    Record testingRecord2;
-    Record testingRecord3;
-    Record testingRecord4;
+    Record ridingHoodWearCap_Json2Object;
+    Record ridingHoodGetsFood_Json2Object;
+    Record ridingHoodEncountersWolf_Json2Object;
+    Record grandmotherAtHome_Json2Object;
 
+    if (ridingHoodWearCap_Json2Object.Json2Object(readJsonFile["Record 1"])) {
+        std::cout << "Riding Hood Wears Cap (Json2Object):\n" << ridingHoodWearCap_Json2Object.dump2JSON()  << "\n" << std::endl;
+    }
     std::cout << "Riding Hood Wears Cap (dump2json):\n" << ridingHoodWearCap.dump2JSON()  << "\n" << std::endl;
-    if (testingRecord.Json2Object(ridingHoodWearCap.dump2JSON())) {
-        std::cout << "Riding Hood Wears Cap (Json2Object):\n" << testingRecord.dump2JSON()  << "\n" << std::endl;
+    
+    if (ridingHoodGetsFood_Json2Object.Json2Object(readJsonFile["Record 2"])) {
+        std::cout << "Riding Hood Gets Food (Json2Object):\n" << ridingHoodGetsFood_Json2Object.dump2JSON()  << "\n" << std::endl;
     }
-
     std::cout << "Riding Hood Gets Food (dump2json):\n" << ridingHoodGetsFood.dump2JSON()  << "\n" << std::endl;
-    if (testingRecord2.Json2Object(ridingHoodGetsFood.dump2JSON())) {
-        std::cout << "Riding Hood Gets Food (Json2Object):\n" << testingRecord2.dump2JSON()  << "\n" << std::endl;
+    
+    if (ridingHoodEncountersWolf_Json2Object.Json2Object(readJsonFile["Record 3"])) {
+        std::cout << "Riding Hood Encounters Wolf (Json2Object):\n" << ridingHoodEncountersWolf_Json2Object.dump2JSON()  << "\n" << std::endl;
     }
-
     std::cout << "Riding Hood Encounters Wolf (dump2json):\n" << ridingHoodEncountersWolf.dump2JSON()  << "\n" << std::endl;
-    if (testingRecord3.Json2Object(ridingHoodEncountersWolf.dump2JSON())) {
-        std::cout << "Riding Hood Encounters Wolf (Json2Object):\n" << testingRecord3.dump2JSON()  << "\n" << std::endl;
+    
+    if (grandmotherAtHome_Json2Object.Json2Object(readJsonFile["Record 4"])) {
+        std::cout << "Grandmother At Home (Json2Object):\n" << grandmotherAtHome_Json2Object.dump2JSON()  << "\n" << std::endl;
     }
-
     std::cout << "Grandmother At Home (dump2json):\n" << grandmotherAtHome.dump2JSON()  << "\n" << std::endl;
-    if (testingRecord4.Json2Object(grandmotherAtHome.dump2JSON())) {
-        std::cout << "Grandmother At Home (Json2Object):\n" << testingRecord4.dump2JSON()  << "\n" << std::endl;
-    }
  
     return 0;
 }

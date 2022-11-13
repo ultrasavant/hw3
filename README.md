@@ -1,4 +1,4 @@
-# ecs36b-hw2
+# ecs36b-hw3
 
 Terrance Mach 918129138
 Alan Hung 918886002

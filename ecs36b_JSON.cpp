@@ -1,4 +1,5 @@
 #include "ecs36b_Common.h"
+#include "ecs36b_JSON.h"
 // #include "JvTime.h"
 
 // void myPrintLog (std::string content, std::string fname) {
@@ -84,7 +85,7 @@ int myJSON2File (char *f_name, Json::Value * jv_ptr) {
   long lSize;
   size_t lresult;
   lSize = strlen(json_buf_ptr);
-  std::cout << f_name << " " << lSize <<  std::endl;
+  // std::cout << f_name << " " << lSize <<  std::endl;
   lresult = fwrite(json_buf_ptr, 1, lSize, f_ptr);
   free(json_buf_ptr);
   fclose(f_ptr);
